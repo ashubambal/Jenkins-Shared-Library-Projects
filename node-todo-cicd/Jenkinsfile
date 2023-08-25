@@ -9,9 +9,12 @@ pipeline {
             }
             stage("Code Build & Test") {
                 steps{
-                    sh "cd node-todo-cicd/" 
-                    echo "Building and image"
-                    sh "docker build -t node-app-demo ."
+                    script {
+                        dir("node-todo-cicd/") {
+                            echo "Building the Docker image"
+                            sh "docker build -t node-app-demo ."
+                        }
+                    }
                 }
             }
             /*
