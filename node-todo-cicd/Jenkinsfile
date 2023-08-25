@@ -9,15 +9,15 @@ pipeline {
             }
             stage("Code Build & Test") {
                 steps{
+                    sh "cd node-todo-cicd/" 
                     echo "Building and image"
-                    sh "cd node-todo-cicd" 
                     sh "docker build -t node-app-demo ."
                 }
             }
             stage("Code Push on DockerHub") {
                 steps{
+                    sh "cd node-todo-cicd/"                     
                     echo "pushing code on dockerhub"
-                    sh "cd node-todo-cicd" 
                     withCredentials([usernamePassword(credentialsId:"dockerhub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                         sh "docker tag node-app-demo ${env.dockerHubUser}/node-app-demo:latest"
@@ -27,8 +27,8 @@ pipeline {
             }
             stage("Code Deploy") {
                 steps{
+                    sh "cd node-todo-cicd/" 
                     echo "Deploying code"
-                    sh "cd node-todo-cicd" 
                     sh "docker-compose down && docker-compose up -d"
                 }
             }
