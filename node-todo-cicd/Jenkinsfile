@@ -17,6 +17,7 @@ pipeline {
             stage("Code Push on DockerHub") {
                 steps{
                     echo "pushing code on dockerhub"
+                    sh "cd node-todo-cicd" 
                     withCredentials([usernamePassword(credentialsId:"dockerhub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
                         sh "docker tag node-app-demo ${env.dockerHubUser}/node-app-demo:latest"
@@ -27,6 +28,7 @@ pipeline {
             stage("Code Deploy") {
                 steps{
                     echo "Deploying code"
+                    sh "cd node-todo-cicd" 
                     sh "docker-compose down && docker-compose up -d"
                 }
             }
