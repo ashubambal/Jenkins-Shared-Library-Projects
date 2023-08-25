@@ -29,8 +29,12 @@ pipeline {
             }
             stage("Code Deploy") {
                 steps{
-                    echo "Deploying code"
-                    sh "docker-compose down && docker-compose up -d"
+                    script {
+                        dir("node-todo-cicd/") {                    
+                        echo "Deploying code"
+                        sh "docker-compose down && docker-compose up -d"
+                        }
+                    }
                 }
             }
         }
