@@ -1,3 +1,4 @@
+@Library("shared-library") _
 pipeline {
     agent any
         stages {
@@ -31,8 +32,7 @@ pipeline {
                 steps{
                     script {
                         dir("node-todo-cicd/") {                    
-                        echo "Deploying code"
-                        sh "docker-compose down && docker-compose up -d"
+                            codeDeploy()
                         }
                     }
                 }
