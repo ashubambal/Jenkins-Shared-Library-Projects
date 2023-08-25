@@ -17,10 +17,8 @@ pipeline {
                     }
                 }
             }
-            /*
             stage("Code Push on DockerHub") {
-                steps{
-                    sh "cd node-todo-cicd/"                     
+                steps{                
                     echo "pushing code on dockerhub"
                     withCredentials([usernamePassword(credentialsId:"dockerhub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
                         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
@@ -31,11 +29,9 @@ pipeline {
             }
             stage("Code Deploy") {
                 steps{
-                    sh "cd node-todo-cicd/" 
                     echo "Deploying code"
                     sh "docker-compose down && docker-compose up -d"
                 }
             }
-            */
         }
 }
